@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -46,7 +47,7 @@ room["treasure"].s_to = room["narrow"]
 #
 
 # Make a new player object that is currently in the 'outside' room.
-new_input = input("Hello adventurer, please tell me your name ")
+new_input = input("Hello adventurer, please tell me your name \n")
 new_player = Player(new_input, room["outside"])
 
 # Write a loop that:
@@ -57,12 +58,25 @@ new_player = Player(new_input, room["outside"])
 
 while True:
     selection = input(
-        f"{new_player.name} are in {new_player.current_room} \n [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST "
+        (
+            f"\n ---------------------- \n {new_player} \n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n"
+        )
     )
-    if selection == "n" or "s" or "w" or "e":
-        new_player.move(selection)
-        # print(f"{new_player.name} has moved to {new_player.current_room} ")
 
+    if new_player.current_room.name == "Treasure Chamber":
+        print("You left the cave empty handed. Try again in version 2")
+        break
+    elif selection == "q":
+        print("See you next time")
+        break
+    elif selection == "n" or "s" or "w" or "e":
+        new_player.move(selection)
+        if getattr(new_player.current_room, f"{selection}_to") is None:
+            print(
+                "That's a dead end, you can't move that way \n ================================"
+            )
+    else:
+        print("Invalid option, please try again")
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.

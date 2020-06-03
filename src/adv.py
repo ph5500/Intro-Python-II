@@ -31,7 +31,7 @@ earlier adventurers. The only exit is to the south.""",
 
 
 # Link rooms together
-
+# change W
 room["outside"].n_to = room["foyer"]
 room["foyer"].s_to = room["outside"]
 room["foyer"].n_to = room["overlook"]
@@ -46,13 +46,23 @@ room["treasure"].s_to = room["narrow"]
 #
 
 # Make a new player object that is currently in the 'outside' room.
+new_input = input("Hello adventurer, please tell me your name ")
+new_player = Player(new_input, room["outside"])
 
-new_player = Player("Alan", room["outside"])
-print(
-    f"Welcome {new_player.name}, you are currently {new_player.current_room.name}, {new_player.current_room.description}"
-)
 # Write a loop that:
-#
+# welcome the user and let them know where they are
+# print(
+#     f"Welcome {new_player.name}, you are currently {new_player.current_room.name}, {new_player.current_room.description}"
+# )
+
+while True:
+    selection = input(
+        f"{new_player.name} are in {new_player.current_room} \n [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST "
+    )
+    if selection == "n" or "s" or "w" or "e":
+        new_player.move(selection)
+        # print(f"{new_player.name} has moved to {new_player.current_room} ")
+
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.

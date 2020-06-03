@@ -1,6 +1,9 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
+
+header = "Welcome to the adventure game, Enjoy!"
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -37,11 +40,16 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
 
+
+
+
+# Make a new player object that is currently in the 'outside' room.
+player = MyPlayer('Link', room["outside"])
 # Write a loop that:
 #
 # * Prints the current room name
+print current_room
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 #
@@ -49,3 +57,6 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+footer = "Thanks for playing!"

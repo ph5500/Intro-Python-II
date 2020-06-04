@@ -7,7 +7,7 @@ class Player:
         self.inventory = []
 
     def move(self, direction):
-        if getattr(self.current_room, f"{direction}_to") is not None:
+        if hasattr(self.current_room, f"{direction}_to"):
             self.current_room = getattr(self.current_room, f"{direction}_to")
 
     def __str__(self):

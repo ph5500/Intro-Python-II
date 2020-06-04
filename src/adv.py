@@ -3,7 +3,7 @@ from player import Player
 
 # Declare all the rooms
 
-header = "Welcome to the adventure game, Enjoy!"
+
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -45,18 +45,49 @@ room['treasure'].s_to = room['narrow']
 
 
 # Make a new player object that is currently in the 'outside' room.
-player = MyPlayer('Link', room["outside"])
+player = Player('Link', room["outside"])
 # Write a loop that:
 #
 # * Prints the current room name
-print current_room
+
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
-# If the user enters "q", quit the game.
 
+while True:
+    print(f"\n{player.current_room.name}")
+    print(f"{player.current_room.description} \n")
 
-footer = "Thanks for playing!"
+    selection = input("Choose which direction to move: ")
+      
+    # If the user enters "q", quit the game.  
+    if selection == "q":
+        print("Thanks for playing!")
+        break
+    
+    if player.current_room.name == room['outside'].name and selection == 'n':
+        player.current_room = room['outside'].n_to
+    elif player.current_room.name == room['foyer'].name and selection == 's':
+        player.current_room = room['foyer'].s_to
+    elif player.current_room.name == room['foyer'].name and selection == 'n':
+        player.current_room = room['foyer'].n_to
+    elif player.current_room.name == room['foyer'].name and selection == 'e':
+        player.current_room = room['foyer'].e_to
+    elif player.current_room.name == room['overlook'].name and selection == 's':
+        player.current_room = room['overlook'].s_to
+    elif player.current_room.name == room['narrow'].name and selection == 'w':
+        player.current_room = room['narrow'].w_to
+    elif player.current_room.name == room['narrow'].name and selection == 'n':
+        player.current_room = room['narrow'].n_to
+    elif player.current_room.name == room['treasure'].name and selection == 's':
+        player.current_room = room['treasure'].s_to
+    else:
+        print('There is no room in that direction.')
+        
+    
+    
+        
+        

@@ -75,17 +75,19 @@ def change_room(direction):
             ========================================
             """
         )
-    # print(len(player.current_room.items))
-    # if len(player.current_room.items > 0):
-    #     for item in player.current_room.items:
-    #         print(item["name"], item["description"])
+
+
+def display_items():
+    if len(player.current_room.items) > 0:
+        for item in player.current_room.items:
+            return item
 
 
 while True:
     selection = input(
         (
             f"""
-            \n ---------------------- \n {player} \n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n What do you do? """
+            \n ---------------------- \n {player} \n items: {display_items()} \n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n What do you do? """
         )
     ).split(" ")
     try:

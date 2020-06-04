@@ -10,7 +10,6 @@ class Room:
         self.s_to = None
         self.e_to = None
         self.w_to = None
-        self.wrong_key = "There is no other room in that direction"
 
     def __str__(self):
         return f" {self.name}, {self.description}"

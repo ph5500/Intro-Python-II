@@ -8,10 +8,6 @@ class Player:
     def move(self, direction):
         if getattr(self.current_room, f"{direction}_to") is not None:
             self.current_room = getattr(self.current_room, f"{direction}_to")
-        # else:
-        #     return print(
-        #         "You have hit a dead end please choose a different option \n ========================================="
-        #     )
 
     def __str__(self):
-        return f"{self.name} is currently {self.current_room} "
+        return f"{self.name}'s current location: \n{self.current_room} "

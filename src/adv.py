@@ -57,26 +57,30 @@ new_player = Player(new_input, room["outside"])
 # )
 
 while True:
-    selection = input(
-        (
-            f"\n ---------------------- \n {new_player} \n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n"
+    selection = str(
+        input(
+            (
+                f"\n ---------------------- \n {new_player} \n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n"
+            )
         )
     )
 
-    if new_player.current_room.name == "Treasure Chamber":
-        print("You left the cave empty handed. Try again in version 2")
-        break
-    elif selection == "q":
+    if selection[0] == "q":
         print("See you next time")
         break
-    elif selection == "n" or "s" or "w" or "e":
-        new_player.move(selection)
-        if getattr(new_player.current_room, f"{selection}_to") is None:
-            print(
-                "That's a dead end, you can't move that way \n ================================"
-            )
-    else:
+    elif new_player.current_room.name == "Treasure Chamber":
+        print("You left the cave empty handed. Try again in version 2")
+        break
+    try:
+        if selection[0] == "n" or "s" or "w" or "e":
+            new_player.move(selection)
+            if getattr(new_player.current_room, f"{selection}_to") is None:
+                print(
+                    "That's a dead end, you can't move that way \n ================================"
+                )
+    except AttributeError:
         print("Invalid option, please try again")
+
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.

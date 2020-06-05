@@ -85,24 +85,37 @@ def item_action(input, item):
         player_take = player.take_item(item)
         if player_take:
             player.current_room.remove_item(item)
-            return f"You put {item} into your bag"
+            return print(
+                f"\n===========================\nYou put {item} into your bag \n===========================\n "
+            )
         elif player_take == False:
             return print("\n==== Item not found ====")
 
 
 def display_items():
     if len(player.current_room.items) > 0:
-        # return player.current_room.items
         item_store = []
         for item in player.current_room.items:
             item_store.append(item.name)
         return f" {', '.join(item_store)}"
+
+
+def show_inventory():
+    item_bag = []
+    if len(player.inventory) > 0:
+        for item in player.inventory:
+            item_bag.append(item.name)
+        return print(
+            f"\n==============================\nInventory: {', '.join(item_bag)}\n==============================\n"
+        )
     else:
-        return print("\n==== No items here ====")
+        return print(
+            f"\n===========================\n     Nothing in your bag     \n===========================\n"
+        )
 
 
 def instructions():
-    return """\n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n """
+    return """\n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [I] Shows Inventory \n Press [Q] to quit \n """
 
 
 while True:
@@ -112,16 +125,25 @@ while True:
         )
     ).split(" ")
     if selection[0] == "q":
-        print("See you next time")
+        print(
+            "\n===========================\n     See you next time     \n===========================\n"
+        )
         break
     try:
         if len(selection) == 1:
-            if selection[0] in movement_options:
+            if selection[0] == "i":
+                show_inventory()
+
+            elif selection[0] in movement_options:
                 change_room(selection[0])
             else:
-                print("Invalid input")
+                print(
+                    "\n===========================\n     Invalid input     \n===========================\n"
+                )
         elif len(selection) == 2:
             if selection[0] in item_options:
                 item_action(selection[0], selection[1])
     except AttributeError:
-        print("Invalid option, please try again")
+        print(
+            "\n===========================\n     Invalid option, please try again     \n===========================\n"
+        )

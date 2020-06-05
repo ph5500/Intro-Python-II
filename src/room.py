@@ -10,3 +10,11 @@ class Room:
 
     def __str__(self):
         return f" {self.name}, {self.description}"
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def remove_item(self, item):
+        for itemValue in self.items:
+            if itemValue.name.lower() == item:
+                self.items.remove(itemValue)

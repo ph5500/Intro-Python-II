@@ -61,20 +61,33 @@ room["stench"].e_to = room["treasure"]
 
 new_input = input("Hello adventurer, please tell me your name \n")
 player = Player(new_input, room["outside"])
-control_options = ["n", "e", "w", "s"]
+movement_options = ["n", "e", "w", "s"]
+item_options = ["g", "t", "d"]
 
 # change room function
 def change_room(direction):
 
     player.move(direction)
-    if hasattr(player.current_room, f"{selection}_to"):
+    if hasattr(player.current_room, f"{direction}_to") == False:
         print(
             """
             ========================================\n
-            That's a dead end, you can't move that way \n
+            That's a dead end, you can't move that way\n
             ========================================
             """
         )
+    else:
+        pass
+
+
+def item_action(input, item):
+    if input == "t":
+        player_take = player.take_item(item)
+        if player_take == True:
+            player.current_room.remove_item(item)
+            return f"You put {item} into your bag"
+        else:
+            return "Item not found"
 
 
 def display_items():
@@ -83,21 +96,27 @@ def display_items():
             return item
 
 
+def instructions():
+    return """\n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n """
+
+
 while True:
     selection = input(
         (
-            f"""
-            \n ---------------------- \n {player} \n items: {display_items()} \n ---------------------- \n Press [N] for NORTH \n Press [S] for SOUTH \n Press [W] for WEST \n Press [E] for EAST \n Press [Q] to quit \n What do you do? """
+            f"\n {instructions()} \n ---------------------- \n {player} \n items: {display_items()} \n What do you do? "
         )
     ).split(" ")
+    if selection[0] == "q":
+        print("See you next time")
+        break
     try:
-        if selection[0] == "q":
-            print("See you next time")
-            break
-            # try:
-        if selection[0] in control_options:
-            change_room(selection[0])
-        else:
-            print("Invalid input")
+        if len(selection) == 1:
+            if selection[0] in movement_options:
+                change_room(selection[0])
+            else:
+                print("Invalid input")
+        elif len(selection) == 2:
+            if selection[0] in item_options:
+                item_action(selection[0], selection[1])
     except AttributeError:
         print("Invalid option, please try again")

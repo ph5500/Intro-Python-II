@@ -14,4 +14,9 @@ class Player:
         return f"{self.name}'s current location: \n{self.current_room} "
 
     def take_item(self, item):
-        self.inventory.append(item)
+        for value in self.current_room.items:
+            if value.name.lower() == item:
+                self.inventory.append(value)
+                return True
+            else:
+                return False

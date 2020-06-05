@@ -83,17 +83,22 @@ def change_room(direction):
 def item_action(input, item):
     if input == "t":
         player_take = player.take_item(item)
-        if player_take == True:
+        if player_take:
             player.current_room.remove_item(item)
             return f"You put {item} into your bag"
-        else:
-            return "Item not found"
+        elif player_take == False:
+            return print("\n==== Item not found ====")
 
 
 def display_items():
     if len(player.current_room.items) > 0:
+        # return player.current_room.items
+        item_store = []
         for item in player.current_room.items:
-            return item
+            item_store.append(item.name)
+        return f" {', '.join(item_store)}"
+    else:
+        return print("\n==== No items here ====")
 
 
 def instructions():
